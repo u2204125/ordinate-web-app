@@ -1,0 +1,15 @@
+:root {
+  --ink: #0f1115;
+  --cloud: #f6f7f9;
+  --cyan: #00d1ff;
+  --graphite: #2a2f36;
+  --header-height: 4.5rem;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+}
