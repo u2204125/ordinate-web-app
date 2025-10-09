@@ -56,6 +56,19 @@ a {
   border: 0;
 }
 
+/* Custom animations for maintenance page */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

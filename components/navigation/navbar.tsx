@@ -76,7 +76,7 @@ export function Navbar() {
             }}
             className="flex items-center gap-3 text-base font-medium tracking-tight text-cloud"
           >
-            <Image src="/logo-ordinate.svg" alt="Ordinate logo" width={42} height={42} priority />
+            <Image src="/logo-ordinate.svg" alt="Ordinate logo" width={42} height={42} priority className="text-cloud" />
             <span className="hidden sm:inline">Ordinate</span>
           </Link>
           <nav className="hidden items-center gap-2 rounded-full border border-white/10 bg-black/30 px-2 py-1 text-sm font-medium text-cloud/80 backdrop-blur-xl lg:flex">

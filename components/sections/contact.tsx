@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/theme/theme-provider';
 import { cn } from '@/lib/utils';
 
-const CONTACT_EMAIL = 'softnetsolutionsbd@gmail.com';
+const CONTACT_EMAIL = 'ordinate.bd70@gmail.com';
 const MAILTO_SUBJECT = encodeURIComponent('Project collaboration with Ordinate');
 const MAILTO_BODY = encodeURIComponent('Hi Ordinate team,\n\nWe would love to collaborate on...\n');
 

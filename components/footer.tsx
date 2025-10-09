@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { useSmoothScrollTo } from '@/lib/useSmoothScrollTo';
 import { GitHubIcon } from '@/icons/github';
-import { LinkedInIcon } from '@/icons/linkedin';
+import { WhatsAppIcon } from '@/icons/whatsapp';
 import { useTheme } from '@/components/theme/theme-provider';
 
 const NAV_LINKS = [
@@ -18,10 +18,10 @@ const NAV_LINKS = [
 
 const SOCIAL_LINKS = [
   {
-    id: 'linkedin',
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/company/ordinate-studio',
-    icon: LinkedInIcon,
+    id: 'whatsapp',
+    label: 'WhatsApp',
+    href: 'https://wa.me/8801817118765',
+    icon: WhatsAppIcon,
   },
   {
     id: 'github',
@@ -50,7 +50,7 @@ export function Footer() {
               scrollTo('#hero');
             }}>
               <div className="relative h-12 w-12 overflow-hidden rounded-full border border-white/10 bg-white/5">
-                <Image src="/logo-ordinate.svg" alt="Ordinate logo" fill sizes="48px" className="object-contain p-2" />
+                <Image src="/logo-ordinate.svg" alt="Ordinate logo" fill sizes="48px" className="object-contain p-2 text-cloud" />
               </div>
               <div className="text-left">
                 <p className="text-base font-semibold tracking-tight text-cloud">Ordinate</p>
@@ -97,7 +97,7 @@ export function Footer() {
               <Link href="/terms" prefetch={false} className="transition hover:text-cloud">
                 Terms
               </Link>
-              <Link href="mailto:softnetsolutionsbd@gmail.com" className="transition hover:text-cloud">
+              <Link href="mailto:ordinate.bd70@gmail.com" className="transition hover:text-cloud">
                 Email us
               </Link>
             </div>
