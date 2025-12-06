@@ -15,6 +15,7 @@ type MobileDrawerProps = {
   open: boolean;
   onNavigate: (href: string) => void;
   onClose: () => void;
+  activeHref?: string;
 };
 
 const FOCUSABLE = [
@@ -28,7 +29,7 @@ const FOCUSABLE = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(',');
 
-export function MobileDrawer({ items, open, onNavigate, onClose }: MobileDrawerProps) {
+export function MobileDrawer({ items, open, onNavigate, onClose, activeHref }: MobileDrawerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const focusables = useRef<HTMLElement[]>([]);
 
@@ -99,7 +100,7 @@ export function MobileDrawer({ items, open, onNavigate, onClose }: MobileDrawerP
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm transition-opacity duration-200"
+      className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-200"
       role="dialog"
       aria-modal="true"
     >
@@ -130,17 +131,23 @@ export function MobileDrawer({ items, open, onNavigate, onClose }: MobileDrawerP
         </div>
         <nav>
           <ul className="flex flex-col gap-3 text-base font-medium text-cloud/90">
-            {items.map((item) => (
-              <li key={item.href}>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate(item.href)}
-                  className="w-full rounded-2xl border border-transparent bg-white/5 px-4 py-3 text-left transition hover:border-white/40 focus-visible:outline focus-visible:outline-cyan"
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
+            {items.map((item) => {
+              const isActive = item.href === activeHref;
+              // compute class names
+              const base = 'w-full rounded-2xl border border-transparent bg-white/5 px-4 py-3 text-left transition hover:border-white/40 focus-visible:outline focus-visible:outline-cyan';
+              const active = isActive ? 'border-white/40 bg-white/10' : '';
+              return (
+                <li key={item.href}>
+                  <button
+                    type="button"
+                    onClick={() => handleNavigate(item.href)}
+                    className={[base, active].filter(Boolean).join(' ')}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <Button
@@ -149,7 +156,7 @@ export function MobileDrawer({ items, open, onNavigate, onClose }: MobileDrawerP
           className="w-full"
           onClick={() => handleNavigate('#contact')}
         >
-          Build with Ordinate
+          Start Your Project
         </Button>
       </div>
     </div>

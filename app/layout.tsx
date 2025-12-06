@@ -16,7 +16,7 @@ const metadataBase = new URL('https://ordinate.studio');
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: 'Ordinate — The Framework for Certainity',
+    default: 'Ordinate — Your Trust, Our Motivation',
     template: '%s · Ordinate',
   },
   description: 'Ordinate helps teams build reliable, high-performance products with confidence.',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     'digital transformation',
   ],
   openGraph: {
-    title: 'Ordinate — The Framework for Certainity',
+    title: 'Ordinate — Your Trust, Our Motivation',
     description: 'Ordinate helps teams build reliable, high-performance products with confidence.',
     url: metadataBase,
     siteName: 'Ordinate',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
         url: '/og-ordinate.png',
         width: 1200,
         height: 630,
-        alt: 'Ordinate — The Framework for Certainity',
+        alt: 'Ordinate — Your Trust, Our Motivation',
       },
     ],
     locale: 'en_US',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ordinate — The Framework for Certainity',
+    title: 'Ordinate — Your Trust, Our Motivation',
     description: 'Ordinate helps teams build reliable, high-performance products with confidence.',
     images: ['/og-ordinate.png'],
   },
@@ -74,7 +74,7 @@ const organizationJsonLd = {
   name: 'Ordinate',
   url: metadataBase.href,
   logo: `${metadataBase.origin}/logo-ordinate.svg`,
-  slogan: 'The Framework for Certainity',
+  slogan: 'Your Trust, Our Motivation',
   sameAs: [
     'https://www.linkedin.com/company/ordinate',
     'https://github.com/ordinate',

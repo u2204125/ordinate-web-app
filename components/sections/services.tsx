@@ -1,253 +1,112 @@
 "use client";
 
-import dynamic from 'next/dynamic';
-import type { KeyboardEvent } from 'react';
-import { useCallback, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useTheme } from '@/components/theme/theme-provider';
-import { cn } from '@/lib/utils';
-import { useArcCarousel } from '@/lib/useArcCarousel';
-import { useInViewAnimation } from '@/lib/useInViewAnimation';
-import type { ServiceVisualId, ServicesVisualProps } from './servicesVisual';
-
-const ServicesVisual = dynamic<ServicesVisualProps>(
-  () => import('./servicesVisual').then((mod) => mod.ServicesVisual),
-  {
-  ssr: false,
-  loading: () => <div className="h-[260px] w-full rounded-3xl border border-white/10 bg-white/5" aria-hidden />,
-  },
-);
-
-type ServiceId = ServiceVisualId;
-
-type ServiceItem = {
-  id: ServiceId;
-  title: string;
-  summary: string;
-  description: string;
-  bullets: string[];
-  accent: string;
-};
-
-const SERVICES: ServiceItem[] = [
-  {
-    id: 'web-apps',
-    title: 'Web Applications',
-    summary: 'Design and ship fast, reliable web platforms aligned with your velocity targets.',
-    description:
-      'We translate strategy into modular systems, build resilient frontends, and operationalize release cadences for product teams.',
-    bullets: ['Atomic design systems mapped to your stack', 'Observability baked into every deploy', 'Rollout playbooks aligned to OKRs'],
-    accent: 'from-cyan/40 via-cyan/15 to-transparent',
-  },
-  {
-    id: 'app-dev',
-    title: 'App Development',
-    summary: 'Partner pods that deliver native-feel experiences, optimized for retention.',
-    description:
-      'Our squads cover cross-platform architectures, delivery pipelines, and telemetry that keeps iteration loops tight.',
-    bullets: ['Shared component kits across platforms', 'Continuous delivery with release guards', 'Session replay and retention dashboards'],
-    accent: 'from-violet-500/40 via-violet-500/15 to-transparent',
-  },
-  {
-    id: 'marketing',
-    title: 'Lifecycle Marketing',
-    summary: 'Launch campaigns with clear attribution, automated insights, and creative velocity.',
-    description:
-      'We wire analytics, automate nurture journeys, and keep creative refresh cycles humming with contextual experimentation.',
-    bullets: ['Multi-channel attribution dashboards', 'Creative ops templates with motion specs', 'Automated experiment orchestration'],
-    accent: 'from-amber-400/50 via-amber-400/20 to-transparent',
-  },
-  {
-    id: 'ai-integration',
-    title: 'AI Integration',
-    summary: 'Operationalize AI assistants and copilots that respect latency, privacy, and trust.',
-    description:
-      'We deliver guardrailed pipelines, evaluation harnesses, and service layers that keep human feedback in the loop.',
-    bullets: ['Model evaluation dashboards with guardrails', 'Prompt ops toolkit with versioning', 'Secure data access layers + red-team drills'],
-    accent: 'from-emerald-400/40 via-emerald-400/15 to-transparent',
-  },
-];
-
-type ArcButtonState = {
-  id: string;
-  label: string;
-  summary: string;
-};
-
-const ARC_BUTTONS: ArcButtonState[] = SERVICES.map((service) => ({
-  id: service.id,
-  label: service.title,
-  summary: service.summary,
-}));
+import React, { useEffect, useRef, useState } from 'react';
+import ServicesModal from './service/services-modal';
+import styles from './service/services.module.css';
+import { Diamond } from './service/Diamond';
+import { LifecycleIcon } from '@/icons/lifecycle';
+import { IntegrationIcon } from '@/icons/integration';
+import { AppDevIcon } from '@/icons/appdev';
+import { ManagementIcon } from '@/icons/management';
 
 export function ServicesSection() {
-  const { prefersReducedMotion } = useTheme();
-  const { ref, inView } = useInViewAnimation<HTMLDivElement>({ rootMargin: '-15% 0px', threshold: 0.35 });
-  const [userNavigated, setUserNavigated] = useState(false);
-
-  const { activeIndex, select, move, positions } = useArcCarousel({
-    items: ARC_BUTTONS,
-    visibleCount: 3,
-    radius: prefersReducedMotion ? 0 : 140,
-    center: { x: 0, y: prefersReducedMotion ? 0 : 10 },
-    reducedMotion: prefersReducedMotion,
-  });
+  // const { theme } = useTheme?.() ?? { theme: 'dark' };
+  const [openId, setOpenId] = useState<string | null>(null);
+  const modalCloseRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion || userNavigated) {
-      return undefined;
+    if (openId) {
+      document.documentElement.style.overflow = 'hidden';
+      modalCloseRef.current?.focus();
+    } else {
+      document.documentElement.style.overflow = '';
     }
-    const interval = window.setInterval(() => {
-      move(1);
-    }, 7800);
-    return () => window.clearInterval(interval);
-  }, [move, prefersReducedMotion, userNavigated]);
 
-  const activeService = SERVICES[activeIndex];
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [openId]);
 
-  const handleSelect = useCallback(
-    (index: number) => {
-      setUserNavigated(true);
-      select(index);
-    },
-    [select],
-  );
-
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        event.preventDefault();
-        setUserNavigated(true);
-        move(-1);
-      } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        event.preventDefault();
-        setUserNavigated(true);
-        move(1);
-      } else if (event.key === 'Home') {
-        event.preventDefault();
-        setUserNavigated(true);
-        select(0);
-      } else if (event.key === 'End') {
-        event.preventDefault();
-        setUserNavigated(true);
-        select(SERVICES.length - 1);
-      } else if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        setUserNavigated(true);
-        handleSelect(index);
+  const services = {
+    lifecycle: {
+      title: 'Lifecycle Marketing',
+      body: 'Launch ROI-driven campaigns with data-powered attribution, automated analysis, and creative continuity. We integrate analytics, automate customer journeys, and keep creatives fresh so conversions always grow.',
+      icon: LifecycleIcon,
+      styles: {
+        background: 'linear-gradient(180deg, #f4edff, #e7e0ff)',
+        color: '#2b1052',
       }
     },
-    [handleSelect, move, select],
-  );
+    webdev: {
+      title: 'Web Development',
+      body: 'Connect systems seamlessly using enterprise-grade APIs and real-time monitoring, fully automate data flows, and ensure 99.9% uptime and reliability across your entire ecosystem.',
+      icon: IntegrationIcon,
+      styles: {
+        background: 'linear-gradient(180deg, #dffaf2, #bff6ee)',
+        color: '#04403a',
+      }
+    },
+    android: {
+      title: 'Android Development',
+      body: 'Build high-performance, scalable, and maintainable products with modern tech stack, fully automated testing, and premium DX. Our focused teams add proven value each sprint, turning your vision into reality.',
+      icon: AppDevIcon,
+      styles: {
+        background: 'linear-gradient(180deg, #fff2e6, #ffe0c2)',
+        color: '#4a2a0b',
+      }
+    },
+    management: {
+      title: 'Management Software',
+      body: 'Streamline your operations with custom management solutions that optimize workflows, track performance, and provide actionable insights. Built to scale with your business needs.',
+      icon: ManagementIcon,
+      styles: {
+        background: 'linear-gradient(180deg, #ffe6f0, #ffd4e5)',
+        color: '#4a0b2e',
+      }
+    },
+  };
+
+  function openModal(id: string) {
+    setOpenId(id);
+  }
+
+  function closeModal() {
+    setOpenId(null);
+  }
 
   return (
-    <section
-      id="services"
-      aria-labelledby="services-heading"
-      className="relative scroll-mt-[var(--header-height)] bg-gradient-to-b from-ink via-[#0f1218] to-ink"
-      tabIndex={-1}
-    >
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 py-24 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
-        <div ref={ref} className="flex flex-col gap-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.4em] text-cloud/60">Services</p>
-          <h2 id="services-heading" className="text-balance text-3xl font-semibold tracking-tight text-cloud sm:text-4xl">
-            Every lane ships with its own engine room.
-          </h2>
-          <p className="max-w-xl text-balance text-base text-cloud/70">
-            Curated pods for each specialty keep pace with ambitious roadmaps. Select a lane to see how Ordinate deploys talent,
-            tooling, and rituals tuned to your outcomes.
-          </p>
-          <div
-            id={`services-panel-${activeService.id}`}
-            role="tabpanel"
-            aria-labelledby={`services-tab-${activeService.id}`}
-            className={cn(
-              'relative overflow-hidden rounded-3xl border border-white/8 bg-gradient-to-br p-8 transition-all md:p-10',
-              activeService.accent,
-              prefersReducedMotion ? 'opacity-100' : 'shadow-[0_0_40px_rgba(0,209,255,0.16)]',
-              inView && !prefersReducedMotion ? 'animate-in fade-in slide-in-from-left-4' : '',
-            )}
-          >
-            <div className="relative space-y-4 text-cloud">
-              <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{activeService.title}</h3>
-              <p className="text-base text-cloud/75 sm:text-lg">{activeService.summary}</p>
-              <p className="text-sm text-cloud/70 sm:text-base">{activeService.description}</p>
-              <ul className="grid gap-2 text-sm text-cloud/75 sm:text-base">
-                {activeService.bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-3">
-                    <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-cyan" aria-hidden />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Button type="button" variant="primary" className="px-5">
-                  View case studies
-                </Button>
-                <Button type="button" variant="ghost" className="border border-white/20 px-5 text-cloud/80">
-                  Schedule a scope call
-                </Button>
+    <section id="services" aria-labelledby="services-heading" className="relative scroll-mt-[var(--header-height)]">
+      <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:grid lg:grid-cols-[minmax(0,1fr)_520px] lg:gap-10">
+        {/* Left column: lead + instruction */}
+        <div className="flex flex-col gap-6">
+          <p className="text-lg font-semibold uppercase tracking-[0.4em] text-cloud/60">Services</p>
+          <h2 id="services-heading" className="text-balance text-3xl font-semibold tracking-tight text-cloud sm:text-4xl">Every service designed for your success.</h2>
+          <p className="max-w-xl text-base text-cloud/70">Expert teams deliver customized solutions for your goals. Select a service to see how Ordinate applies proven talent, powerful tools, and tested methods to ensure your success.</p>
+
+          <div className="rounded-3xl border border-white/8 bg-white/5 p-4 sm:p-6 max-w-xl mx-auto lg:mx-0 mb-5 lg:mb-0">
+            <p className="text-sm text-center text-cloud/70">Hover on icons for preview. Click for full details.</p>
+          </div>
+        </div>
+
+        {/* Right column: diamonds + panel */}
+        <div className="flex items-center justify-center">
+          <div className={`relative w-full max-w-md min-h-[22rem] rounded-2xl border border-white/8 bg-[radial-gradient(circle_at_center,rgba(0,209,255,0.18),transparent_65%)] p-6 shadow-lg flex flex-col justify-center`}>
+            <div className={`${styles.diamondArea} flex flex-col justify-center`}>
+              <div className={`${styles.diamondRow}`}>
+                <Diamond d={services.lifecycle} id="lifecycle" openModal={openModal} styles={styles} />
+              </div>
+
+              <div className={`${styles.diamondRow}`}>
+                <Diamond d={services.android} id="android" openModal={openModal} styles={styles} />
+                <Diamond d={services.webdev} id="webdev" openModal={openModal} styles={styles} />
+              </div>
+
+              <div className={`${styles.diamondRow}`}>
+                <Diamond d={services.management} id="management" openModal={openModal} styles={styles} />
               </div>
             </div>
-          </div>
-          <ServicesVisual serviceId={activeService.id} reducedMotion={prefersReducedMotion} />
-        </div>
-        <div className="relative flex flex-col items-center justify-center gap-6 lg:items-stretch">
-          <div className="relative h-[360px] w-full max-w-md self-center rounded-[2.5rem] border border-white/8 bg-black/20 p-8 shadow-[0_40px_120px_rgba(0,0,0,0.45)] lg:max-w-none">
-            <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_top,#00d1ff26,transparent_65%)]" aria-hidden />
-            <div
-              role="tablist"
-              aria-label="Select a service"
-              className="relative h-full w-full"
-            >
-              {!prefersReducedMotion && (
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-              )}
-              {positions.map((position, index) => {
-                const service = SERVICES[index];
-                const isActive = position.isActive;
-                const isVisible = prefersReducedMotion ? true : position.isVisible;
 
-                return (
-                  <button
-                    key={service.id}
-                    type="button"
-                    role="tab"
-                    id={`services-tab-${service.id}`}
-                    aria-controls={`services-panel-${service.id}`}
-                    aria-selected={isActive}
-                    tabIndex={isActive ? 0 : -1}
-                    onFocus={() => handleSelect(index)}
-                    onMouseEnter={() => handleSelect(index)}
-                    onClick={() => handleSelect(index)}
-                    onKeyDown={(event) => handleKeyDown(event, index)}
-                    className={cn(
-                      'absolute flex h-28 w-28 flex-col items-center justify-center gap-2 rounded-3xl border border-white/12 bg-white/10 px-4 text-center text-sm font-semibold text-cloud transition will-change-transform focus-visible:outline focus-visible:outline-cyan/70',
-                      isActive
-                        ? 'border-cyan/40 bg-cyan/20 text-ink shadow-[0_0_40px_rgba(0,209,255,0.35)]'
-                        : 'text-cloud/75 hover:border-white/25 hover:bg-white/15',
-                      prefersReducedMotion ? 'relative static mx-auto mb-3 w-full max-w-xs translate-x-0 translate-y-0' : '',
-                    )}
-                    style={
-                      prefersReducedMotion
-                        ? undefined
-                        : {
-                            transform: `translate(-50%, -50%) translate3d(${position.x}px, ${position.y}px, 0) rotate(${-position.angle}deg) scale(${position.scale})`,
-                            opacity: isVisible ? 1 : 0,
-                            pointerEvents: isVisible ? 'auto' : 'none',
-                            zIndex: position.zIndex,
-                          }
-                    }
-                  >
-                    <span className="text-xs uppercase tracking-[0.28em] text-cloud/50">{index + 1}</span>
-                    <span className="text-sm font-semibold leading-snug">{service.title}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          <div className="rounded-3xl border border-white/8 bg-white/5 p-6 text-balance text-center text-sm text-cloud/70">
-            Use ← → to rotate lanes. Press Enter to select. Reduced motion toggles a simplified list view.
+            <ServicesModal openId={openId} closeModal={closeModal} modalCloseRef={modalCloseRef} infoMap={services} />
           </div>
         </div>
       </div>

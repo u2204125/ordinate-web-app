@@ -31,8 +31,8 @@ export type AboutAccentCssVars = CSSProperties & {
 export const aboutItems: AboutItemConfig[] = [
   {
     id: 'strategy',
-    title: 'Strategy alignment',
-    summary: 'Outcome roadmaps, operating cadences, and guardrails to remove delivery ambiguity.',
+    title: 'Strategic Planning',
+    summary: 'Outcome-focused roadmaps, proven methods, and strong safeguards that remove all delivery uncertainty.',
     visual: 'strategy',
     accent: {
       tab: 'linear-gradient(135deg, rgba(0, 209, 255, 0.18) 0%, rgba(0, 209, 255, 0.05) 100%)',
@@ -44,8 +44,8 @@ export const aboutItems: AboutItemConfig[] = [
   },
   {
     id: 'design',
-    title: 'Design systems',
-    summary: 'Tokenised libraries, motion specs, and governance that keep UI and code in lockstep.',
+    title: 'Design Systems',
+    summary: 'Modern tokenized libraries, premium motion design, and proven governance keeping UI and code perfectly synced.',
     visual: 'design',
     accent: {
       tab: 'linear-gradient(135deg, rgba(238, 130, 238, 0.18) 0%, rgba(238, 130, 238, 0.05) 100%)',
@@ -57,8 +57,8 @@ export const aboutItems: AboutItemConfig[] = [
   },
   {
     id: 'architecture',
-    title: 'Architecture ops',
-    summary: 'Service blueprints, drift detection, and SLO dashboards tuned for resilient growth.',
+    title: 'Architecture Ops',
+    summary: 'Scalable service blueprints, automated drift detection, and real-time SLO dashboards ensuring fast, stable growth.',
     visual: 'architecture',
     accent: {
       tab: 'linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0.05) 100%)',
@@ -70,8 +70,8 @@ export const aboutItems: AboutItemConfig[] = [
   },
   {
     id: 'delivery',
-    title: 'Delivery engineering',
-    summary: 'Embedded squads to unblock roadmaps, accelerate sprints, and codify repeatable playbooks.',
+    title: 'Delivery Engineering',
+    summary: 'Expert squads who unblock roadmaps, accelerate sprints, and build repeatable, proven playbooks for long-term success.',
     visual: 'delivery',
     accent: {
       tab: 'linear-gradient(135deg, rgba(253, 186, 116, 0.22) 0%, rgba(253, 186, 116, 0.08) 100%)',
@@ -83,8 +83,8 @@ export const aboutItems: AboutItemConfig[] = [
   },
   {
     id: 'warranty',
-    title: 'Runbook warranty',
-    summary: 'Post-launch drills, alerts, and care plans so releases stay reliable after handoff.',
+    title: 'Runbook Warranty',
+    summary: 'Post-launch readiness, proactive alerts, and comprehensive care plans keeping your releases 100% reliable and stable.',
     visual: 'warranty',
     accent: {
       tab: 'linear-gradient(135deg, rgba(59, 130, 246, 0.22) 0%, rgba(59, 130, 246, 0.08) 100%)',

@@ -7,15 +7,15 @@ import { useScramble } from '@/lib/useScramble';
 import { useSmoothScrollTo } from '@/lib/useSmoothScrollTo';
 
 const HEADLINES = [
-  'Build fast. Launch clean.',
-  'Reliable by design.',
-  'From order to outcomes.',
+  'Build Fast. Launch Right.',
+  'Reliability by Design.',
+  'Vision to Victory.',
 ];
 
 const SUBTITLES = [
-  'Shipping clarity across every launch.',
-  'Ops and insights moving in lockstep.',
-  'The framework for certain outcomes.',
+  'Full control. Zero surprises.',
+  'Data-driven. Real-time insights.',
+  'Proven systems. Guaranteed results.',
 ];
 
 function usePrefersReducedData() {
@@ -192,7 +192,7 @@ export function HeroSection() {
             className="min-w-[10rem]"
             onClick={() => scrollTo('#contact')}
           >
-            Start a project
+            Start Your Project
           </Button>
           <Button
             type="button"
@@ -200,7 +200,7 @@ export function HeroSection() {
             className="min-w-[10rem] border border-white/20 text-cloud hover:border-white/40"
             onClick={() => scrollTo('#services')}
           >
-            Explore services
+            Explore Services
           </Button>
         </div>
       </div>
@@ -209,7 +209,7 @@ export function HeroSection() {
         <div className="absolute bottom-5 flex w-full justify-center">
           <button
             type="button"
-            aria-label="Scroll to About section"
+            aria-label="Go to about section"
             className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-cloud shadow-[0_0_25px_rgba(0,209,255,0.25)] transition hover:border-white/40 focus-visible:outline focus-visible:outline-cyan"
             onClick={() => scrollTo('#about')}
           >

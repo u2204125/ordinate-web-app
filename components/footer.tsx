@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { useSmoothScrollTo } from '@/lib/useSmoothScrollTo';
-import { GitHubIcon } from '@/icons/github';
 import { WhatsAppIcon } from '@/icons/whatsapp';
 import { useTheme } from '@/components/theme/theme-provider';
 
@@ -23,12 +22,12 @@ const SOCIAL_LINKS = [
     href: 'https://wa.me/8801817118765',
     icon: WhatsAppIcon,
   },
-  {
-    id: 'github',
-    label: 'GitHub',
-    href: 'https://github.com/ordinate-studio',
-    icon: GitHubIcon,
-  },
+  // {
+  //   id: 'github',
+  //   label: 'GitHub',
+  //   href: 'https://github.com/ordinate-studio',
+  //   icon: GitHubIcon,
+  // },
 ];
 
 export function Footer() {
@@ -50,15 +49,15 @@ export function Footer() {
               scrollTo('#hero');
             }}>
               <div className="relative h-12 w-12 overflow-hidden rounded-full border border-white/10 bg-white/5">
-                <Image src="/logo-ordinate.svg" alt="Ordinate logo" fill sizes="48px" className="object-contain p-2 text-cloud" />
+                <Image src="/logo-dark-transparent.png" alt="Ordinate logo" fill sizes="48px" className="object-contain p-2 text-cloud" />
               </div>
               <div className="text-left">
                 <p className="text-base font-semibold tracking-tight text-cloud">Ordinate</p>
-                <p className="text-sm text-cloud/60">The Framework for Certainity</p>
+                <p className="text-sm text-cloud/60">Proven framework for guaranteed success</p>
               </div>
             </Link>
             <p className="max-w-md text-sm text-cloud/65">
-              We partner with product orgs to remove ambiguity from delivery, bringing neon precision to every launch.
+              We partner with your business to completely remove uncertainty from delivery, ensuring proven results and long-term success with every launch.
             </p>
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map(({ id, label, href, icon: Icon }) => (
@@ -90,15 +89,12 @@ export function Footer() {
               ))}
             </nav>
             <div className="flex flex-col gap-4 text-sm text-cloud/70">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cloud/50">Resources</p>
-              <Link href="/privacy" prefetch={false} className="transition hover:text-cloud">
-                Privacy
-              </Link>
-              <Link href="/terms" prefetch={false} className="transition hover:text-cloud">
-                Terms
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cloud/50">Links</p>
+              <Link href="/terms-and-privacy" prefetch={false} className="transition hover:text-cloud">
+                Terms & Privacy
               </Link>
               <Link href="mailto:ordinate.bd70@gmail.com" className="transition hover:text-cloud">
-                Email us
+                Email Us
               </Link>
             </div>
           </div>
@@ -107,9 +103,8 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Ordinate Studio. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-3">
             <Button type="button" variant="ghost" className="border border-white/20 px-4 text-xs text-cloud/70" onClick={handleBackToTop}>
-              Back to top
+              Back to Top
             </Button>
-            <span className="text-cloud/45">Crafted with precision in Next.js 14</span>
           </div>
         </div>
       </div>

@@ -16,10 +16,10 @@ export const REVIEWS: Review[] = [
   {
     id: 'selene-bradford',
     name: 'Selene Bradford',
-    role: 'VP Product',
-    company: 'Vectorstate',
+    role: 'VP of Product',
+    company: 'VectorState',
     quote:
-      "Ordinate mapped our analog release rituals into a digital operating system. Velocity jumped 38% without trading on quality.",
+      "Ordinate transformed our old release process into a modern digital operating system. Result: 38% faster delivery with zero compromise on quality.",
     rating: 5,
     color: '#4FD1FF',
     avatar: {
@@ -33,7 +33,7 @@ export const REVIEWS: Review[] = [
     role: 'CTO',
     company: 'Stratiform Labs',
     quote:
-      'Their architecture ops playbooks saved our migration. We shipped four services in parallel and kept incidents at zero.',
+      'Their architecture ops playbook made our migration completely safe and successful. We launched four services in parallel within 24 hours with zero incidents. This is what reliability looks like.',
     rating: 5,
     color: '#6366F1',
     avatar: {
@@ -47,7 +47,7 @@ export const REVIEWS: Review[] = [
     role: 'Head of Design Systems',
     company: 'Orbitical',
     quote:
-      'Ordinate codified our token pipeline and automated drift checks. Designers and engineers finally work from the same truth.',
+      'Ordinate fully automated our token pipeline and systematized drift checks. Now designers and engineers work from the same truth—no more confusion, conflicts, or timeline slippage.',
     rating: 5,
     color: '#F97316',
     avatar: {
@@ -61,7 +61,7 @@ export const REVIEWS: Review[] = [
     role: 'Engineering Director',
     company: 'Northwave',
     quote:
-      'They gave our delivery org guardrails without bureaucracy. SLOs, dashboards, and on-call drills just happen now.',
+      'They brought perfect balance of clarity and safety to our delivery culture. SLO monitoring, real-time dashboards, and on-call readiness all run automatically—we focus on writing code, not process.',
     rating: 4,
     color: '#34D399',
     avatar: {
@@ -73,9 +73,9 @@ export const REVIEWS: Review[] = [
     id: 'carmen-cho',
     name: 'Carmen Cho',
     role: 'Growth Lead',
-    company: 'LumenReach',
+    company: 'Lumenrich',
     quote:
-      'Campaigns launch with reliable telemetry and creative refreshes. Attribution is no longer a guessing game.',
+      'Every campaign launches with pixel-perfect telemetry and automated creative refresh. Attribution isn\'t guesswork anymore—we know exact ROI and make data-driven decisions.',
     rating: 4,
     color: '#F9A8D4',
     avatar: {
@@ -87,9 +87,9 @@ export const REVIEWS: Review[] = [
     id: 'henrik-voss',
     name: 'Henrik Voss',
     role: 'Head of Platform',
-    company: 'Auralith',
+    company: 'Oralith',
     quote:
-      'Their AI readiness framework is the reason our copilots cleared legal and compliance in record time.',
+      'Their AI readiness framework is why our AI copilot features got legal and security approval in record time. Their compliance playbook cut our time-to-market by 60%.',
     rating: 5,
     color: '#38BDF8',
     avatar: {

@@ -1,9 +1,8 @@
-import type { JSXElement } from 'react';
 import { WhatsAppIcon } from '@/icons/whatsapp';
 
-export default function MaintenancePage(): JSXElement {
+export default function MaintenancePage() {
   return (
-  <div className="flex min-h-screen flex-col items-center justify-center bg-ink text-cloud relative overflow-hidden px-2">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-ink text-cloud relative overflow-hidden px-2">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-1/2 -left-1/2 w-full h-full opacity-10">
@@ -14,7 +13,7 @@ export default function MaintenancePage(): JSXElement {
         </div>
       </div>
 
-  <div className="relative z-10 text-center px-4 sm:px-6 max-w-full sm:max-w-2xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-full sm:max-w-2xl mx-auto">
         {/* Logo */}
           <div className="mb-8">
             <div className="inline-flex items-center justify-center mb-4">
@@ -28,15 +27,15 @@ export default function MaintenancePage(): JSXElement {
           </div>
 
         {/* Main content */}
-  <div className="space-y-6">
+        <div className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-              We'll Be Right Back
+              We&apos;ll Be Right Back
             </h2>
             <div className="h-1 w-16 sm:w-24 bg-cyan mx-auto rounded-full" />
           </div>
           <p className="text-base sm:text-lg md:text-xl text-cloud/80 leading-relaxed">
-            We're making some exciting improvements to bring you an even better experience.<br className="block sm:hidden" />
+            We&apos;re making some exciting improvements to bring you an even better experience.<br className="block sm:hidden" />
             Our team is working hard to get everything ready.
           </p>
 

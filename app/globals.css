@@ -79,3 +79,11 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+/* About section: small-screen panels shown when their tab is selected or hovered */
+.about-small-panel { display: none; }
+button[aria-selected="true"] + .about-small-panel { display: block; }
+button:hover + .about-small-panel { display: block; }
+@media (min-width: 1024px) {
+  .about-small-panel { display: none !important; }
+}

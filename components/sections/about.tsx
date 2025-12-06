@@ -7,6 +7,8 @@ import { useTheme } from '@/components/theme/theme-provider';
 import { useInViewAnimation } from '@/lib/useInViewAnimation';
 import { aboutItems, getAccentCssVariables } from '@/lib/aboutItems';
 import { aboutVisuals } from './about/visuals';
+import AboutVisualDesktop from './about/about-visual-desktop';
+import AboutVisualMobile from './about/about-visual-mobile';
 
 const AUTO_ROTATE_MS = 6800;
 const RESUME_DELAY_MS = 9000;
@@ -60,6 +62,7 @@ export function AboutSection() {
 
     setParallaxOffset((current) => (Math.abs(current - next) > 0.5 ? next : current));
   }, []);
+
 
   const scheduleRotate = useCallback(
     (delay: number) => {
@@ -201,60 +204,65 @@ export function AboutSection() {
                 const isHovered = hoveredIndex === index;
                 const highlight = isActive || isHovered;
                 const accentVars = getAccentCssVariables(item.accent);
+                const ItemVisual = aboutVisuals[item.visual];
 
                 return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={`about-panel-${item.id}`}
-                    id={`about-tab-${item.id}`}
-                    tabIndex={isActive ? 0 : -1}
-                    className="group relative flex items-start gap-4 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-all duration-300 ease-out focus-visible:outline focus-visible:outline-2 backdrop-blur-xl sm:px-5 sm:py-5"
-                    style={{
-                      ...accentVars,
-                      background: highlight ? 'var(--about-tab-bg)' : 'rgba(255, 255, 255, 0.03)',
-                      borderColor: highlight ? 'var(--about-tab-border)' : 'rgba(255, 255, 255, 0.08)',
-                      boxShadow: highlight && !prefersReducedMotion ? 'var(--about-tab-shadow)' : 'none',
-                      outlineColor: 'var(--about-tab-border)',
-                      opacity: inView || prefersReducedMotion ? 1 : 0,
-                      transform: inView || prefersReducedMotion ? 'translateY(0)' : 'translateY(18px)',
-                      transitionDelay: inView && !prefersReducedMotion ? `${index * 80}ms` : undefined,
-                    }}
-                    onMouseEnter={() => {
-                      setHoveredIndex(index);
-                      handleSelect(index);
-                    }}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    onFocus={() => {
-                      setHoveredIndex(index);
-                      handleSelect(index);
-                    }}
-                    onBlur={() => setHoveredIndex(null)}
-                    onClick={() => handleSelect(index)}
-                    onKeyDown={(event) => handleKeyDown(event, index)}
-                  >
-                    <span className="flex flex-col gap-1">
-                      <span className="text-sm font-semibold tracking-tight sm:text-base">{item.title}</span>
-                      <span className="text-xs text-cloud/60 sm:text-sm">{item.summary}</span>
-                    </span>
-                    <span className="ml-auto hidden text-xs font-semibold uppercase tracking-[0.3em] text-cloud/50 sm:inline">
-                      {String(index + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
-                    </span>
-                    <span
-                      aria-hidden
-                      className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ background: 'var(--about-tab-bg-hover)' }}
-                    />
-                  </button>
+                  <div key={item.id} className="w-full">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={`about-panel-${item.id}`}
+                      id={`about-tab-${item.id}`}
+                      tabIndex={isActive ? 0 : -1}
+                      className="group relative flex items-start gap-4 w-full overflow-hidden rounded-2xl border px-4 py-4 text-left transition-all duration-300 ease-out focus-visible:outline focus-visible:outline-2 backdrop-blur-xl sm:px-5 sm:py-5"
+                      style={{
+                        ...accentVars,
+                        background: highlight ? 'var(--about-tab-bg)' : 'rgba(255, 255, 255, 0.03)',
+                        borderColor: highlight ? 'var(--about-tab-border)' : 'rgba(255, 255, 255, 0.08)',
+                        boxShadow: highlight && !prefersReducedMotion ? 'var(--about-tab-shadow)' : 'none',
+                        outlineColor: 'var(--about-tab-border)',
+                        opacity: inView || prefersReducedMotion ? 1 : 0,
+                        transform: inView || prefersReducedMotion ? 'translateY(0)' : 'translateY(18px)',
+                        transitionDelay: inView && !prefersReducedMotion ? `${index * 80}ms` : undefined,
+                      }}
+                      onMouseEnter={() => {
+                        setHoveredIndex(index);
+                        handleSelect(index);
+                      }}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      onFocus={() => {
+                        setHoveredIndex(index);
+                        handleSelect(index);
+                      }}
+                      onBlur={() => setHoveredIndex(null)}
+                      onClick={() => handleSelect(index)}
+                      onKeyDown={(event) => handleKeyDown(event, index)}
+                    >
+                      <span className="flex flex-col gap-1">
+                        <span className="text-sm font-semibold tracking-tight sm:text-base">{item.title}</span>
+                        <span className="text-xs text-cloud/60 sm:text-sm">{item.summary}</span>
+                      </span>
+                      <span className="ml-auto hidden text-xs font-semibold uppercase tracking-[0.3em] text-cloud/50 sm:inline">
+                        {String(index + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
+                      </span>
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        style={{ background: 'var(--about-tab-bg-hover)' }}
+                      />
+                    </button>
+
+                    {/* small-screen inline visual: CSS-controlled per-item panel (shown when the preceding button has aria-selected="true") */}
+                    <AboutVisualMobile itemId={item.id} ItemVisual={ItemVisual} isActive={isActive} />
+                  </div>
                 );
               })}
             </nav>
           </div>
           <div
             role="tabpanel"
-            id={`about-panel-${activeItem.id}`}
+            id={`about-panel-desktop`}
             aria-labelledby={`about-tab-${activeItem.id}`}
             className="relative flex w-full justify-center transition-transform duration-500 ease-out lg:sticky lg:top-[calc(var(--header-height)+2.5rem)] lg:pl-4"
             style={{
@@ -302,9 +310,11 @@ export function AboutSection() {
                       }
                 }
               >
-                <Visual />
+                {/* Desktop visual: visible only on lg+ via CSS classes */}
+                <AboutVisualDesktop activeKey={activeItem.id} Visual={Visual} prefersReducedMotion={prefersReducedMotion} />
               </motion.div>
             </AnimatePresence>
+            {/* small-screen visuals are rendered inline per item above */}
           </div>
         </div>
       </div>
